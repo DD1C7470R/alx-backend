@@ -30,14 +30,13 @@ class Server:
 
         return self.__dataset
 
-
-def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-    """get page to paginate a database of popular baby names.
-    """
-    assert isinstance(page, int) and page > 0
-    assert isinstance(page_size, int) and page_size > 0
-    i_range = index_range(page, page_size)
-    return [
-        self.dataset()[idx] for idx in range(i_range[0], i_range[1])
-        if idx <= len(self.dataset())
-    ]
+    def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """get page to paginate a database of popular baby names.
+        """
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
+        i_range = index_range(page, page_size)
+        return [
+            self.dataset()[idx] for idx in range(i_range[0], i_range[1])
+            if idx <= len(self.dataset())
+        ]
