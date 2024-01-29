@@ -12,4 +12,4 @@ def index_range(page: int = None, page_size: int = None) -> tuple:
         else:
             return (0, page_size)
     else:
-        return None
+        return (None, None)
