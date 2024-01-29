@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
+"""Hypermedia pagination sample.
 """
-Main file
-"""
-
 import csv
 import math
-from typing import List
+from typing import Dict, List, Tuple
 
 
-index_range = __import__('0-simple_helper_function').index_range
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
+    """Retrieves the index range from a given page and page size.
+    """
+    start = (page - 1) * page_size
+    end = start + page_size
+    return (start, end)
 
 
 class Server:
@@ -17,6 +20,8 @@ class Server:
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        """Initializes a new Server instance.
+        """
         self.__dataset = None
 
     def dataset(self) -> List[List]:
@@ -31,18 +36,18 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """get page to paginate a database of popular baby names.
+        """Retrieves a page of data.
         """
-        assert isinstance(page, int) and page > 0
-        assert isinstance(page_size, int) and page_size > 0
-        i_range = index_range(page, page_size)
-        return [
-            self.dataset()[idx] for idx in range(i_range[0], i_range[1])
-            if idx <= len(self.dataset())
-        ]
+        assert type(page) == int and type(page_size) == int
+        assert page > 0 and page_size > 0
+        start, end = index_range(page, page_size)
+        data = self.dataset()
+        if start > len(data):
+            return []
+        return data[start:end]
 
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
-        """get page to paginate a database of popular baby names.
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
+        """Retrieves information about a page.
         """
         page_data = self.get_page(page, page_size)
         start, end = index_range(page, page_size)
