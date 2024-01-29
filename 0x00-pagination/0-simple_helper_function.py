@@ -2,7 +2,6 @@
 """
 Main file
 """
-from typing import Union
 
 
 def index_range(page: int = None, page_size: int = None) -> tuple:
@@ -13,4 +12,4 @@ def index_range(page: int = None, page_size: int = None) -> tuple:
         else:
             return (0, page_size)
     else:
-        return (0, 0)
+        return None
