@@ -24,8 +24,11 @@ class MRUCache(BaseCaching):
             if key in self.cache_data.keys():
                 del self.cache_data[key]
             elif size_of_cache > BaseCaching.MAX_ITEMS:
-                discarded_key = self.RECENTLY_USED[-1]
-                del self.cache_data[discarded_key]
+                if len(self.RECENTLY_USED) > 0:
+                    discarded_key = self.RECENTLY_USED[-1]
+                    del self.cache_data[discarded_key]
+                else:
+                    discarded_key, val  = self.cache_data.popitem()
                 print(f"DISCARD: {discarded_key}")
         self.get_least_used(key)
         self.cache_data[key] = item
