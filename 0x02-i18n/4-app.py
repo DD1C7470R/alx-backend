@@ -21,15 +21,15 @@ babel = Babel(app)
 @babel.localeselector
 def get_locale() -> str:
     """get language local"""
+    locale = request.query_string.decode('utf-8').split('=')[1]
+    if locale:
+        app.config['LANGUAGES'] = [locale]
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
 def get_indexi() -> str:
     """ Prints a Message when / is called """
-    locale = request.query_string.decode('utf-8').split('=')[1]
-    if locale:
-        app.config['LANGUAGES'][0] = locale
     return render_template('0-index.html')
 
 
