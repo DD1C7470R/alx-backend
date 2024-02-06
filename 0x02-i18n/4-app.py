@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """ Starts a Flash Web Application """
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g
 from flask_babel import Babel
 
 
 class Config:
     """Represents a Flask Babel configuration.
     """
-    LANGUAGES = ["en", "fr"]
+    LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
@@ -36,7 +36,8 @@ def get_locale() -> str:
 @app.route('/')
 def get_indexi() -> str:
     """ Prints a Message when / is called """
-    return render_template('0-index.html')
+    g.locale = str(get_locale())
+    return render_template('4-index.html')
 
 
 if __name__ == "__main__":
