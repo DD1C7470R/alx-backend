@@ -60,7 +60,6 @@ def get_locale() -> str:
 @app.route('/')
 def get_indexi() -> str:
     """ Prints a Message when / is called """
-    g.locale = str(get_locale())
     return render_template('5-index.html')
 
 
