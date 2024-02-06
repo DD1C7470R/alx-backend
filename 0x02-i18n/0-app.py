@@ -5,9 +5,11 @@ from flask_babel import Babel
 
 
 app = Flask(__name__)
+app.url_map.strict_slahes = False
 
-@app.route('/', strict_slashes=False)
-def hello_hbnb():
+
+@app.route('/')
+def get_indexi() -> str:
     """ Prints a Message when / is called """
     return render_template('0-index.html')
 
