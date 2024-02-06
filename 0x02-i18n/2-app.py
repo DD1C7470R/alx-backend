@@ -18,6 +18,12 @@ app.config.from_object(Config)
 babel = Babel(app)
 
 
+@babel.localeselector
+def get_locale() -> any:
+    """get language local"""
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
 @app.route('/')
 def get_indexi() -> str:
     """ Prints a Message when / is called """
